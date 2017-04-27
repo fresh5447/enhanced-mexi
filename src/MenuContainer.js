@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import restaurantData from './data';
 
-class MenuSelect extends Component {
+class MenuContainer extends Component {
   state = {
     spiceThresh: 10,
   };
@@ -35,4 +34,4 @@ class MenuSelect extends Component {
   }
 }
 
-export default MenuSelect;
+export default MenuContainer;

@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+import DATA from './data'
+import MenuContainer from './MenuContainer';
 
 ReactDOM.render(
-  <App />,
+  <MenuContainer menuData={DATA} />,
   document.getElementById('root')
 );
