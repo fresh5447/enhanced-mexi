@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 require('./index.css');
 
 import DATA from './data';
-import MenuContainer from './MenuContainer';
+import App from './App';
 
 ReactDOM.render(
-  <MenuContainer restaurantData={DATA} />,
+  <App restaurantData={DATA} />,
   document.getElementById('root')
 );
