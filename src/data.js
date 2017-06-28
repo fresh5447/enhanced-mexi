@@ -1,5 +1,5 @@
 export default {
-	title: "Juans Burrito Stop",
+	title: "Juans Burrito Shop",
 	phone: "(404) 788-4545",
 	menuItems: [
 		{ item: "Pork Tacos", spiceLevel: 5 },

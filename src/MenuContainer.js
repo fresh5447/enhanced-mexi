@@ -1,34 +1,76 @@
 import React, {Component} from 'react';
 
+const MenuTitle = props => <h1> 🌮 {props.title} 🌮 </h1>;
+
+const MenuList = props => (
+  <div>
+
+    {/*.. need to use spiceThrese to filter through
+              menu list before we map */
+
+    props.menuItems.filter(item =>
+      item.spiceLevel <= props.spiceThresh
+    ).map((food, index) => {
+      return (
+        <div className="food-container" key={index}>
+          <h4>🍴 {food.item} </h4>
+          <h4> 🌶 spice {food.spiceLevel} </h4>
+        </div>
+      );
+    })}
+
+  </div>
+);
+
+const SpiceForm = props => {
+  return (
+    <div>
+      <h3> Enter Spice Desire </h3>
+      <input type="number" onChange={(event) => props.updateText(event)} />
+    </div>
+  );
+};
+
+
+
 class MenuContainer extends Component {
   state = {
-    spiceThresh: 10,
-  };
-  textChange(event) {
-    this.setState({spiceThresh: Number(event.target.value)});
+    spiceThresh: 5,
   }
+
+  // if you are passing the function to a child
+  // container - you must bind it to THIS component
+  textChange = this.textChange.bind(this)
+
+  textChange(event) {
+    var getSimpleNums = this.props.restaurantData.menuItems.map(item =>
+      item.spiceLevel
+    )
+
+    var max = getSimpleNums.reduce(function(a, b) {
+      return Math.max(a, b);
+    });
+
+    if(event.target.value < max) {
+      this.setState({spiceThresh: event.target.value});
+    } else {
+      alert("num must be less than 10")
+    }
+  }
+
   render() {
-    console.log(restaurantData);
+    console.log(
+      `%c ${this.props.restaurantData.title}`,
+      'background: #222; color: #bada55; font-size: 22px;',
+    );
     return (
       <div className="container">
-        <h1>Your goal here is to:</h1>
-        <ul>
-          <li>1. Develop a restaurant menu interface</li>
-          <li>
-            2. Allow users to enter in a spice level
-            to a text field
-          </li>
-          <li>
-            3. Use input data to filter the given menu
-            items
-          </li>
-          <li>
-            4. You must place your input interface within a separate
-            "dumb" react component and call it here
-          </li>
-          <li>NOTE: If no input is entered, all menu items should display</li>
-        </ul>
-        <img src="http://vignette2.wikia.nocookie.net/bookoflife/images/7/73/All_you_can_eat_churros.PNG/revision/latest?cb=20140910221451" />
+        <MenuTitle title={this.props.restaurantData.title} />
+        <SpiceForm updateText={this.textChange} />
+        <MenuList
+          spiceThresh={this.state.spiceThresh}
+          menuItems={this.props.restaurantData.menuItems}
+        />
       </div>
     );
   }
